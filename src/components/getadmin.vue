@@ -1,0 +1,81 @@
+<template>
+  <v-container>
+      <v-col cols="12">
+        <v-img
+          :src="logo"
+          class="my-3"
+          contain
+          height="200"
+        />
+      </v-col>
+<div v-for="email in info" :key="email.id">
+    {{ email.email }}
+</div>
+    
+  </v-container>
+</template>
+
+<script>
+import logo from '../assets/logo.svg'
+import axios from 'axios'
+
+export default {
+  name: 'getadmin',
+
+  data: () => ({
+    info:null,
+    ecosystem: [
+      {
+        text: 'vuetify-loader',
+        href: 'https://github.com/vuetifyjs/vuetify-loader',
+      },
+      {
+        text: 'github',
+        href: 'https://github.com/vuetifyjs/vuetify',
+      },
+      {
+        text: 'awesome-vuetify',
+        href: 'https://github.com/vuetifyjs/awesome-vuetify',
+      },
+    ],
+    importantLinks: [
+      {
+        text: 'Chat',
+        href: 'https://community.vuetifyjs.com',
+      },
+      {
+        text: 'Made with Vuetify',
+        href: 'https://madewithvuejs.com/vuetify',
+      },
+      {
+        text: 'Twitter',
+        href: 'https://twitter.com/vuetifyjs',
+      },
+      {
+        text: 'Articles',
+        href: 'https://medium.com/vuetify',
+      },
+    ],
+    logo,
+    whatsNext: [
+      {
+        text: 'Explore components',
+        href: 'https://vuetifyjs.com',
+      },
+      {
+        text: 'Roadmap',
+        href: 'https://vuetifyjs.com/introduction/roadmap/',
+      },
+      {
+        text: 'Frequently Asked Questions',
+        href: 'https://vuetifyjs.com/getting-started/frequently-asked-questions',
+      },
+    ],
+  }),
+  mounted() {
+    axios
+      .get('http://localhost:4000/adminapi.json')
+      .then(response => (this.info = response.data))
+  },
+}
+</script>
